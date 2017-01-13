@@ -1,6 +1,11 @@
 var React = require('react');
+import { addNote } from '../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-require('./NoteEditor.css');
+
+
+require('./../css/NoteEditor.css');
 
 var NoteEditor = React.createClass({
     getInitialState: function() {
@@ -20,7 +25,7 @@ var NoteEditor = React.createClass({
             id: Date.now()
         };
 
-        this.props.onNoteAdd(newNote);
+        this.props.addNote(newNote);
         this.setState({ text: '' });
     },
 
@@ -40,4 +45,8 @@ var NoteEditor = React.createClass({
     }
 });
 
-module.exports = NoteEditor;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ addNote: addNote }, dispatch);
+}
+
+export default connect((state) => state, mapDispatchToProps)(NoteEditor);

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import WeatherReducer from './reducer_weather';
+import ToDoReducer from './todo_reducer';
 
 const rootReducer = combineReducers({
-  weather: WeatherReducer
+  notes: ToDoReducer
 });
 
 export default rootReducer;

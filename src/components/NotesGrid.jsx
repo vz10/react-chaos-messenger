@@ -1,10 +1,20 @@
 var React = require('react');
 var Note = require('./Note.jsx');
 
-require('./NotesGrid.css');
+import { initTodo } from '../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
+require('./../css/NotesGrid.css');
 
 var NotesGrid = React.createClass({
+    defaultProps: {
+        notes: []
+    },
     componentDidMount: function() {
+        this.props.initTodo();
+
         var grid = this.refs.grid;
 
         this.msnry = new Masonry( grid, {
@@ -23,8 +33,6 @@ var NotesGrid = React.createClass({
     },
 
     render: function() {
-        var onNoteDelete = this.props.onNoteDelete;
-
         return (
             <div className="notes-grid" ref="grid">
                 {
@@ -32,8 +40,8 @@ var NotesGrid = React.createClass({
                         return (
                             <Note
                                 key={note.id}
-                                onDelete={onNoteDelete.bind(null, note)}
-                                color={note.color}>
+                                color={note.color}
+                                id={note.id}>
                                 {note.text}
                             </Note>
                         );
@@ -44,4 +52,14 @@ var NotesGrid = React.createClass({
     }
 });
 
-module.exports = NotesGrid;
+function mapStateToProps(state) {
+    return {
+        notes: state.notes
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ initTodo: initTodo }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotesGrid);
