@@ -14,23 +14,8 @@ var NotesGrid = React.createClass({
     },
     componentDidMount: function() {
         this.props.initTodo();
-
-        var grid = this.refs.grid;
-
-        this.msnry = new Masonry( grid, {
-            itemSelector: '.note',
-            columnWidth: 200,
-            gutter: 10,
-            isFitWidth: true
-        });
     },
 
-    componentDidUpdate: function(prevProps) {
-        if (this.props.notes.length !== prevProps.notes.length) {
-            this.msnry.reloadItems();
-            this.msnry.layout();
-        }
-    },
 
     render: function() {
         return (

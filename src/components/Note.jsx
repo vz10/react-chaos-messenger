@@ -14,8 +14,7 @@ var Note = React.createClass({
         var style = { backgroundColor: this.props.color };
 
         return (
-            <div className="note" style={style}>
-                <span className="delete-note" onClick={this.onDelete}> × </span>
+            <div className="note" style={style}  onClick={this.onDelete}>
                 {this.props.children}
             </div>
         );
