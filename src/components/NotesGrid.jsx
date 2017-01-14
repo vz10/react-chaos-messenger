@@ -59,7 +59,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ initTodo: initTodo }, dispatch);
+    return bindActionCreators({ initTodo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesGrid);

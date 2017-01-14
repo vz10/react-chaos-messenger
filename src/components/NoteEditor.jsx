@@ -46,7 +46,7 @@ var NoteEditor = React.createClass({
 });
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addNote: addNote }, dispatch);
+    return bindActionCreators({ addNote }, dispatch);
 }
 
 export default connect((state) => state, mapDispatchToProps)(NoteEditor);
