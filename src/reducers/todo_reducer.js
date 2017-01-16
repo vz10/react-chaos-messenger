@@ -4,7 +4,7 @@ export default function(state = [], action) {
         var localNotes = JSON.parse(localStorage.getItem('notes'));
         return localNotes;
     case 'ADD_NOTE':
-        var newNotes = state.slice();
+        var newNotes = (state || []).slice();
         newNotes.unshift(action.payload);
         localStorage.setItem('notes', JSON.stringify(newNotes));
         return newNotes;
