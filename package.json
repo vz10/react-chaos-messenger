@@ -15,6 +15,7 @@
     "jquery": "*"
   },
   "devDependencies": {
+    "autoprefixer-loader": "3.2.0",
     "babel": "5.x",
     "babel-jest": "^18.0.0",
     "babel-loader": "5.*",
