@@ -1,7 +1,7 @@
 export default function(state = [], action) {
   switch (action.type) {
     case 'INIT_TODO':
-        var localNotes = JSON.parse(localStorage.getItem('notes'));
+        var localNotes = JSON.parse(localStorage.getItem('notes')) || [];
         return localNotes;
     case 'ADD_NOTE':
         var newNotes = (state || []).slice();
