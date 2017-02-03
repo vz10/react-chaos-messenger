@@ -1,13 +1,15 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
 import { Provider } from 'react-redux'
-import { createStore } from 'redux';
+import configureStore from './store/store'
 
 var NotesApp = require('./components/NotesApp.jsx');
-import reducers from './reducers';
+
+const initialState = window.__INITIAL_STATE__ || {firebase: { authError: null }}
+const store = configureStore(initialState)
 
 ReactDOM.render(
-    <Provider store={createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
+    <Provider store={store}>
         <NotesApp />
     </Provider>,
     document.getElementById('mount-point')

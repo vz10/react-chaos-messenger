@@ -3,7 +3,8 @@ import { addNote } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-
+import { firebaseConnect, helpers } from 'react-redux-firebase'
+const { isLoaded, isEmpty, dataToJS } = helpers
 
 require('./../css/NoteEditor.css');
 
@@ -25,8 +26,10 @@ var NoteEditor = React.createClass({
             id: Date.now()
         };
 
-        this.props.addNote(newNote);
+//        this.props.addNote(newNote);
         this.setState({ text: '' });
+        this.props.firebase.push('/messages', newNote);
+
     },
 
     render: function() {
@@ -48,5 +51,6 @@ var NoteEditor = React.createClass({
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addNote }, dispatch);
 }
+const wrappedNoteEditor = firebaseConnect(['/messages'])(NoteEditor)
 
-export default connect((state) => state, mapDispatchToProps)(NoteEditor);
+export default connect((state) => state, mapDispatchToProps)(wrappedNoteEditor);
