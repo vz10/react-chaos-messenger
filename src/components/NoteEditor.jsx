@@ -31,7 +31,11 @@ var NoteEditor = React.createClass({
         this.props.firebase.push('/messages', newNote);
 
     },
-
+    handleKeyPress: function(e) {
+        if (e.key === 'Enter') {
+            this.handleNoteAdd();
+        }
+    },
     render: function() {
         return (
             <div className="note-editor">
@@ -41,6 +45,7 @@ var NoteEditor = React.createClass({
                     className="textarea"
                     value={this.state.text}
                     onChange={this.handleTextChange}
+                    onKeyPress={this.handleKeyPress}
                 />
                 <button className="add-button" onClick={this.handleNoteAdd}>Add</button>
             </div>
