@@ -1,3 +1,7 @@
 .notes-grid {
     margin: 0 auto;
 }
+
+.note:last-child{
+  border: 2px solid blue;
+}
