@@ -16,17 +16,15 @@ var Note = React.createClass({
         this.props.unselectMessage(this.props.id);
     },
     render: function() {
-        var style = { backgroundColor: this.props.color };
+        var style = { backgroundColor: this.props.color}
         var classes = classNames({
            'bubble': true,
            'red': this.props.id == this.props.max_id,
+           'yellow': this.props.id == this.props.min_id,
            'shaking': this.props.id == this.props.before_selected
          });
-        if (this.props.id == this.props.selected.id){
-            style = { backgroundColor: 'red' };
-        }
         return (
-            <div className={classes} style={style}  onMouseEnter={this.onHover}
+            <div className={classes} onMouseEnter={this.onHover}
             onMouseLeave={this.onUnHover}>
                 {this.props.children}
             </div>

@@ -20,16 +20,16 @@ var NoteEditor = React.createClass({
     },
 
     handleNoteAdd: function() {
-        var newNote = {
-            text: this.state.text,
-            color: 'yellow',
-            id: Date.now()
-        };
+      if (this.state.text.length > 0){
+          var newNote = {
+              text: this.state.text,
+              color: 'yellow',
+              id: Date.now()
+          };
 
-//        this.props.addNote(newNote);
-        this.setState({ text: '' });
-        this.props.firebase.push('/messages', newNote);
-
+          this.setState({ text: '' });
+          this.props.firebase.push('/messages', newNote);
+      }
     },
     handleKeyPress: function(e) {
         if (e.key === 'Enter') {

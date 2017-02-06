@@ -20,9 +20,12 @@ var NotesGrid = React.createClass({
     render: function() {
         var {messages, selected} = this.props,
             max_id = null,
+            min_id = null,
             before_selected = null;
         if (!isEmpty(messages)){
-          max_id = Math.max.apply(Math, Object.keys(messages).map(function(o){return messages[o].id;}));
+          max_id = Math.max.apply(null, Object.keys(messages).map(function(o){return messages[o].id;}));
+          min_id = Math.min.apply(null, Object.keys(messages).map(function(o){return messages[o].id;}));
+          console.log(max_id, min_id);
         }
         if (selected.id){
           before_selected = Math.max.apply(Math, Object.keys(messages).map(function(o){
@@ -39,6 +42,7 @@ var NotesGrid = React.createClass({
                                 key={key}
                                 color={messages[key].color}
                                 max_id={max_id}
+                                min_id={min_id}
                                 before_selected={before_selected}
                                 id={messages[key].id}>
                                 {messages[key].text}
