@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 import { selectMessage, unselectMessage } from '../actions/index';
 import { connect } from 'react-redux';
@@ -16,7 +17,6 @@ var Note = React.createClass({
         this.props.unselectMessage(this.props.id);
     },
     render: function() {
-        var style = { backgroundColor: this.props.color}
         var classes = classNames({
            'bubble': true,
            'red': this.props.id == this.props.max_id,
@@ -24,7 +24,7 @@ var Note = React.createClass({
            'shaking': this.props.id == this.props.before_selected
          });
         return (
-            <div className={classes} onMouseEnter={this.onHover}
+            <div className={classes} onMouseEnter={this.onHover} ref="message"
             onMouseLeave={this.onUnHover}>
                 {this.props.children}
             </div>

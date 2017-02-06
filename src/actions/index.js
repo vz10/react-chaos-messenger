@@ -24,3 +24,10 @@ export function unselectMessage(id) {
         payload: id
     }
 }
+
+export function setName(name) {
+    return {
+        type: 'SET_NAME',
+        payload: name
+    }
+}

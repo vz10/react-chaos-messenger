@@ -5,3 +5,31 @@
 .note:last-child{
   border: 2px solid blue;
 }
+
+.columns {
+	-webkit-column-count: 4;
+	-webkit-column-gap: 5px;
+	-webkit-column-fill: auto;
+	-moz-column-count: 4;
+	-moz-column-gap: 5px;
+	-moz-column-fill: auto;
+	column-count: 4;
+	column-gap: 5px;
+	column-fill: auto;
+}
+
+@media (min-width: 960px) {
+ .columns {
+		-webkit-column-count: 5;
+		-moz-column-count: 5;
+		column-count: 5;
+	}
+}
+
+@media (min-width: 1100px) {
+	.columns {
+		-webkit-column-count: 6;
+		-moz-column-count: 6;
+		column-count: 6;
+	}
+}

@@ -1,5 +1,5 @@
 var React = require('react');
-import { addNote } from '../actions/index';
+import { addNote, setName } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -21,26 +21,47 @@ var NoteEditor = React.createClass({
 
     handleNoteAdd: function() {
       if (this.state.text.length > 0){
-          var newNote = {
+          var newMessage = {
               text: this.state.text,
               color: 'yellow',
               id: Date.now()
           };
-
+          if (this.props.name){
+            newMessage.name = this.props.name;
+          }
           this.setState({ text: '' });
-          this.props.firebase.push('/messages', newNote);
+          this.props.firebase.push('/messages', newMessage);
       }
     },
-    handleKeyPress: function(e) {
-        if (e.key === 'Enter') {
+    handleKeyPress: function(event) {
+        if (event.key === 'Enter') {
             this.handleNoteAdd();
         }
+    },
+    handleEnterName: function(event){
+      if (event.key === 'Enter') {
+          this.props.setName(event.target.value);
+      }
+    },
+    getName: function(){
+      if (this.props.name.length > 0){
+        return <label><strong>Your nick is: {this.props.name}</strong></label>
+      } else {
+        return (
+          <input type="text"
+                 className="textarea"
+                 onKeyPress={this.handleEnterName}
+                 placeholder="Your name" />
+        )
+      }
     },
     render: function() {
         return (
             <div className="note-editor">
+                {this.getName()}
+                <hr/>
                 <textarea
-                    placeholder="Enter your note here..."
+                    placeholder="Enter your message here..."
                     rows={5}
                     className="textarea"
                     value={this.state.text}
@@ -54,7 +75,7 @@ var NoteEditor = React.createClass({
 });
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addNote }, dispatch);
+    return bindActionCreators({ addNote, setName }, dispatch);
 }
 const wrappedNoteEditor = firebaseConnect(['/messages'])(NoteEditor)
 
