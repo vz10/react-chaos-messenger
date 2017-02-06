@@ -10,7 +10,7 @@ const { isLoaded, isEmpty, dataToJS } = helpers
 
 require('./../css/NotesGrid.css');
 
-var NotesGrid = React.createClass({    
+var NotesGrid = React.createClass({
     defaultProps: {
         notes: []
     },
@@ -18,16 +18,28 @@ var NotesGrid = React.createClass({
         this.props.initTodo();
     },
     render: function() {
-        var {messages} = this.props;
+        var {messages, selected} = this.props,
+            max_id = null,
+            before_selected = null;
+        if (!isEmpty(messages)){
+          max_id = Math.max.apply(Math, Object.keys(messages).map(function(o){return messages[o].id;}));
+        }
+        if (selected.id){
+          before_selected = Math.max.apply(Math, Object.keys(messages).map(function(o){
+                return messages[o].id < selected.id ? messages[o].id : 0;
+              }));
+        }
         return (
             <div className="notes-grid" ref="grid">
-                {!isLoaded(messages) ? 
-                    'Loading' : isEmpty(messages) ? 'No messages yet': 
+                {!isLoaded(messages) ?
+                    'Loading' : isEmpty(messages) ? 'No messages yet':
                     Object.keys(messages).map(function(key, id){
                         return (
                             <Note
                                 key={key}
                                 color={messages[key].color}
+                                max_id={max_id}
+                                before_selected={before_selected}
                                 id={messages[key].id}>
                                 {messages[key].text}
                             </Note>
@@ -42,6 +54,7 @@ var NotesGrid = React.createClass({
 function mapStateToProps(state) {
     return {
         notes: state.notes,
+        selected: state.selected,
         messages: dataToJS(state.firebase, '/messages'),
     };
 }

@@ -11,9 +11,16 @@ export function addNote(newNote) {
     }
 }
 
-export function deleteNote(id) {
+export function selectMessage(id) {
     return {
-        type: 'DELETE_NOTE',
+        type: 'SELECT_MESSAGE',
+        payload: id
+    }
+}
+
+export function unselectMessage(id) {
+    return {
+        type: 'UN_SELECT_MESSAGE',
         payload: id
     }
 }

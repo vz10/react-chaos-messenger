@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { firebaseStateReducer as firebase } from 'react-redux-firebase'
-import ToDoReducer from './todo_reducer';
+import SelectedReducer from './selected_reducer';
 
 const rootReducer = combineReducers({
-    notes: ToDoReducer,
+    selected: SelectedReducer,
     firebase
 });
 

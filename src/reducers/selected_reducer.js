@@ -8,12 +8,10 @@ export default function(state = [], action) {
         newNotes.unshift(action.payload);
         localStorage.setItem('notes', JSON.stringify(newNotes));
         return newNotes;
-    case 'DELETE_NOTE':
-        var notes = state.filter(function (item) {
-                                    return item.id != action.payload;
-                                });
-        localStorage.setItem('notes', JSON.stringify(notes));
-        return notes;
+    case 'SELECT_MESSAGE':
+        return {id: action.payload};
+    case 'UN_SELECT_MESSAGE':
+            return {};
   }
   return state;
 }

@@ -1,20 +1,33 @@
 var React = require('react');
 
-import { deleteNote } from '../actions/index';
+import { selectMessage, unselectMessage } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+var classNames = require('classnames');
+
 
 require('./../css/Note.css');
 
 var Note = React.createClass({
-    onDelete: function () {
-        this.props.deleteNote(this.props.id);
+    onHover: function () {
+        this.props.selectMessage(this.props.id);
+    },
+    onUnHover: function () {
+        this.props.unselectMessage(this.props.id);
     },
     render: function() {
         var style = { backgroundColor: this.props.color };
-
+        var classes = classNames({
+           'bubble': true,
+           'red': this.props.id == this.props.max_id,
+           'shaking': this.props.id == this.props.before_selected
+         });
+        if (this.props.id == this.props.selected.id){
+            style = { backgroundColor: 'red' };
+        }
         return (
-            <div className="note" style={style}  onClick={this.onDelete}>
+            <div className={classes} style={style}  onMouseEnter={this.onHover}
+            onMouseLeave={this.onUnHover}>
                 {this.props.children}
             </div>
         );
@@ -22,13 +35,11 @@ var Note = React.createClass({
 });
 
 function mapStateToProps(state) {
-    return state;
+    return {selected: state.selected};
 }
 
 function mapDispatchToProps(dispatch) {
-    // Whenever selectBook is called, the result shoudl be passed
-    // to all of our reducers
-    return bindActionCreators({ deleteNote: deleteNote }, dispatch);
+    return bindActionCreators({ selectMessage, unselectMessage }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note);

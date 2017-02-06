@@ -20,6 +20,7 @@
     "babel": "5.x",
     "babel-jest": "^18.0.0",
     "babel-loader": "5.*",
+    "classnames": "^2.2.5",
     "css-loader": "^0.22.0",
     "expect": "^1.13.0",
     "file-loader": "^0.8.5",
