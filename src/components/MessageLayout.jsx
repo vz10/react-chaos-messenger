@@ -1,16 +1,19 @@
 var React = require('react');
-var Note = require('./Note.jsx');
+var Message = require('./Message.jsx');
 
 import { initTodo } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { extractDomain } from '../utils/utils'
 
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 const { isLoaded, isEmpty, dataToJS } = helpers
 
-require('./../css/NotesGrid.css');
+require('./../css/MessageLayout.css');
 
-var NotesGrid = React.createClass({
+const domain = extractDomain();
+
+var MessageLayout = React.createClass({
     defaultProps: {
         notes: []
     },
@@ -35,13 +38,14 @@ var NotesGrid = React.createClass({
                 return messages[o].id < selected.id ? messages[o].id : 0;
               }));
         }
+
         return (
             <div className="notes-grid columns" ref="grid">
                 {!isLoaded(messages) ?
                     'Loading' : isEmpty(messages) ? 'No messages yet':
                     Object.keys(messages).map(function(key, id){
                         return (
-                            <Note
+                            <Message
                                 key={key}
                                 color={messages[key].color}
                                 max_id={max_id}
@@ -50,7 +54,7 @@ var NotesGrid = React.createClass({
                                 id={messages[key].id}>
                                 {me.showName(messages[key])}
                                 {messages[key].text}
-                            </Note>
+                            </Message>
                         );
                     })
                 }
@@ -62,7 +66,7 @@ var NotesGrid = React.createClass({
 function mapStateToProps(state) {
     return {
         selected: state.selected,
-        messages: dataToJS(state.firebase, '/messages'),
+        messages: dataToJS(state.firebase, '/'+domain),
     };
 }
 
@@ -70,6 +74,6 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ initTodo }, dispatch);
 }
 
-const wrappedNotesGrid = firebaseConnect(['/messages'])(NotesGrid)
+const wrappedMessageLayout = firebaseConnect(['/'+domain])(MessageLayout)
 
-export default connect(mapStateToProps, mapDispatchToProps)(wrappedNotesGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(wrappedMessageLayout);

@@ -2,12 +2,7 @@ import { createStore, compose } from 'redux'
 import rootReducer from '../reducers/index'
 import { reduxFirebase } from 'react-redux-firebase'
 
-// Replace with your Firebase config
-const fbConfig = {
-  apiKey: 'AIzaSyAWTmzhA91EJGwbRYWsjVstvdrHloPXHZs',
-  authDomain: 'sizzling-heat-2355.firebaseio.com',
-  databaseURL: 'https://sizzling-heat-2355.firebaseio.com'
-}
+import fbConfig from '../config.json';
 
 export default function configureStore (initialState, history) {
   const createStoreWithMiddleware = compose(

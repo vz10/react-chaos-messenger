@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 
 import { selectMessage, unselectMessage } from '../actions/index';
 import { connect } from 'react-redux';
@@ -7,9 +6,9 @@ import { bindActionCreators } from 'redux';
 var classNames = require('classnames');
 
 
-require('./../css/Note.css');
+require('./../css/Message.css');
 
-var Note = React.createClass({
+var Message = React.createClass({
     onHover: function () {
         this.props.selectMessage(this.props.id);
     },
@@ -40,4 +39,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ selectMessage, unselectMessage }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Note);
+export default connect(mapStateToProps, mapDispatchToProps)(Message);

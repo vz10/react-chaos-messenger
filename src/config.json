@@ -1,0 +1,7 @@
+{
+  "_comment" : "Replace with your Firebase config",
+  
+  "apiKey": "AIzaSyAWTmzhA91EJGwbRYWsjVstvdrHloPXHZs",
+  "authDomain": "sizzling-heat-2355.firebaseio.com",
+  "databaseURL": "https://sizzling-heat-2355.firebaseio.com"
+}

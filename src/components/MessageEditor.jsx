@@ -2,13 +2,16 @@ var React = require('react');
 import { addNote, setName } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { extractDomain } from '../utils/utils';
 
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 const { isLoaded, isEmpty, dataToJS } = helpers
 
-require('./../css/NoteEditor.css');
+require('./../css/MessageEditor.css');
 
-var NoteEditor = React.createClass({
+const domain = extractDomain();
+
+var MessageEditor = React.createClass({
     getInitialState: function() {
         return {
             text: ''
@@ -19,18 +22,17 @@ var NoteEditor = React.createClass({
         this.setState({ text: event.target.value });
     },
 
-    handleNoteAdd: function() {
+    handleMessageAdd: function() {
       if (this.state.text.length > 0){
           var newMessage = {
               text: this.state.text,
-              color: 'yellow',
               id: Date.now()
           };
           if (this.props.name){
             newMessage.name = this.props.name;
           }
           this.setState({ text: '' });
-          this.props.firebase.push('/messages', newMessage);
+          this.props.firebase.push('/'+domain, newMessage);
       }
     },
     handleKeyPress: function(event) {
@@ -68,7 +70,7 @@ var NoteEditor = React.createClass({
                     onChange={this.handleTextChange}
                     onKeyPress={this.handleKeyPress}
                 />
-                <button className="add-button" onClick={this.handleNoteAdd}>Add</button>
+                <button className="add-button" onClick={this.handleMessageAdd}>Send</button>
             </div>
         );
     }
@@ -77,6 +79,6 @@ var NoteEditor = React.createClass({
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addNote, setName }, dispatch);
 }
-const wrappedNoteEditor = firebaseConnect(['/messages'])(NoteEditor)
+const wrappedMessageEditor = firebaseConnect(['/'+domain])(MessageEditor)
 
-export default connect((state) => state, mapDispatchToProps)(wrappedNoteEditor);
+export default connect((state) => state, mapDispatchToProps)(wrappedMessageEditor);
