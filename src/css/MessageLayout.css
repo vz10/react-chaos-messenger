@@ -1,5 +1,8 @@
-.notes-grid {
+.messages-layout {
     margin: 0 auto;
+    min-width: 900px;
+    min-height: 1000px;
+    height: 1000px;
 }
 
 .note:last-child{
