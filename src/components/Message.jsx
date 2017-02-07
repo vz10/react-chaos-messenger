@@ -1,10 +1,9 @@
-var React = require('react');
-
-import { selectMessage, unselectMessage } from '../actions/index';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-var classNames = require('classnames');
+import classNames from 'classnames';
 
+import { selectMessage, unselectMessage } from '../actions/index';
 
 require('./../css/Message.css');
 

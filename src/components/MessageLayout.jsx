@@ -1,25 +1,19 @@
-var React = require('react');
-var Message = require('./Message.jsx');
-
-import { initTodo } from '../actions/index';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { extractDomain } from '../utils/utils'
 
 import { firebaseConnect, helpers } from 'react-redux-firebase'
-const { isLoaded, isEmpty, dataToJS } = helpers
+
+import Message from './Message.jsx';
+import { initTodo } from '../actions/index';
+import { extractDomain } from '../utils/utils'
 
 require('./../css/MessageLayout.css');
 
+const { isLoaded, isEmpty, dataToJS } = helpers
 const domain = extractDomain();
 
 var MessageLayout = React.createClass({
-    defaultProps: {
-        notes: []
-    },
-    componentDidMount: function() {
-        this.props.initTodo();
-    },
     showName: function(message){
       return message.name ? <div><strong>{message.name}</strong><hr/></div> : '';
     },
@@ -40,7 +34,7 @@ var MessageLayout = React.createClass({
         }
 
         return (
-            <div className="notes-grid columns" ref="grid">
+            <div className="messages-layout columns" ref="grid">
                 {!isLoaded(messages) ?
                     'Loading' : isEmpty(messages) ? 'No messages yet':
                     Object.keys(messages).map(function(key, id){
@@ -70,10 +64,6 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ initTodo }, dispatch);
-}
-
 const wrappedMessageLayout = firebaseConnect(['/'+domain])(MessageLayout)
 
-export default connect(mapStateToProps, mapDispatchToProps)(wrappedMessageLayout);
+export default connect(mapStateToProps)(wrappedMessageLayout);

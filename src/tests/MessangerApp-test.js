@@ -4,18 +4,18 @@ import expect from 'expect';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store'
 
-import NotesApp from '../components/NotesApp.jsx';
+import MessengerApp from '../components/MessengerApp.jsx';
 
 const mockStore = configureStore();
 
-describe('NotesApp', function () {
+describe('MessengerApp', function () {
     it('renders without problems', function () {
-        const initialState = {notes:[]};
+        const initialState = {messages:[]};
         const store = mockStore(initialState);
 
         let root = TestUtils.renderIntoDocument(
             <Provider store={store}>
-                <NotesApp />
+                <MessengerApp />
             </Provider>
         );
         expect(root).toExist();

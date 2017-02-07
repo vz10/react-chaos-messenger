@@ -1,16 +1,3 @@
-export function initTodo() {
-    return {
-      type: 'INIT_TODO',
-    }
-}
-
-export function addNote(newNote) {
-    return {
-        type: 'ADD_NOTE',
-        payload: newNote
-    }
-}
-
 export function selectMessage(id) {
     return {
         type: 'SELECT_MESSAGE',

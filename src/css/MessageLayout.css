@@ -1,9 +1,5 @@
-.notes-grid {
+.messages-layout{
     margin: 0 auto;
-}
-
-.note:last-child{
-  border: 2px solid blue;
 }
 
 .columns {

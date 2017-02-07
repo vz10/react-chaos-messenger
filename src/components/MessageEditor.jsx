@@ -1,14 +1,14 @@
-var React = require('react');
-import { addNote, setName } from '../actions/index';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { extractDomain } from '../utils/utils';
-
 import { firebaseConnect, helpers } from 'react-redux-firebase'
-const { isLoaded, isEmpty, dataToJS } = helpers
+
+import { extractDomain } from '../utils/utils';
+import { setName } from '../actions/index';
 
 require('./../css/MessageEditor.css');
 
+const { isLoaded, isEmpty, dataToJS } = helpers
 const domain = extractDomain();
 
 var MessageEditor = React.createClass({
@@ -37,7 +37,7 @@ var MessageEditor = React.createClass({
     },
     handleKeyPress: function(event) {
         if (event.key === 'Enter') {
-            this.handleNoteAdd();
+            this.handleMessageAdd();
         }
     },
     handleEnterName: function(event){
@@ -59,7 +59,7 @@ var MessageEditor = React.createClass({
     },
     render: function() {
         return (
-            <div className="note-editor">
+            <div className="message-editor">
                 {this.getName()}
                 <hr/>
                 <textarea
@@ -77,7 +77,7 @@ var MessageEditor = React.createClass({
 });
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addNote, setName }, dispatch);
+    return bindActionCreators({ setName }, dispatch);
 }
 const wrappedMessageEditor = firebaseConnect(['/'+domain])(MessageEditor)
 
