@@ -18,3 +18,30 @@ export function setName(name) {
         payload: name
     }
 }
+
+export function setArrow(arrow) {
+    return {
+        type: 'SET_ARROW',
+        payload: arrow
+    }
+}
+
+export function hideArrow() {
+    return {
+        type: 'HIDE_ARROW',
+    }
+}
+
+export function addCollapseMessage(id) {
+    return {
+        type: 'ADD_TO_COLLAPSE',
+        payload: id
+    }
+}
+
+export function removeCollapseMessage(id) {
+    return {
+        type: 'REMOVE_FROM_COLLAPSE',
+        payload: id
+    }
+}

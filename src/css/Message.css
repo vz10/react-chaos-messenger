@@ -26,7 +26,7 @@
   color: #000;
   text-shadow: 0 1px 1px rgba(255,255,255,0.8);
   word-wrap: break-word;
-  padding: 15px;
+  padding: 16px;
   padding-bottom: 5px;
   margin: 0 2px 15px;
 
@@ -84,6 +84,35 @@
 }
 .yellow:after {
   border-bottom-color: #fcf3c3;
+}
+
+.expand-arrows, .collapse-arrows{
+  background-size: 15px 15px;
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.expand-arrows{
+  background-image: url("../images/expand.png");
+}
+
+.collapse-arrows{
+  background-image: url("../images/collapse.png");
+}
+
+.collapsed-counter{
+  display: inline-block;
+  position: absolute;
+  font-size: 15px;
+  color: #00aa00;
+  font-weight: bold;
+  top: 3px;
+  right: 25px;
 }
 
 .shaking {
