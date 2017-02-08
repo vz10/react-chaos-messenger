@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 
-import Message from './Message.jsx';
+import Message from './Message';
 import { initTodo } from '../actions/index';
 import { extractDomain } from '../utils/utils'
 

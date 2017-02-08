@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MessageEditor from './MessageEditor.jsx';
-import MessageLayout from './MessageLayout.jsx';
+import MessageEditor from './MessageEditor';
+import MessageLayout from './MessageLayout';
 
 require('./../css/MessengerApp.css');
 

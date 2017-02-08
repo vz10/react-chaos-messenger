@@ -1,18 +1,26 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: "./src/main.js",
+    entry: [
+      'babel-polyfill',
+      "./src/main.js"
+    ],
     output: {
         path: __dirname + '/public/build/',
         publicPath: "build/",
         filename: "bundle.js"
     },
+    devtool: 'source-map',
+    resolve: {
+      extensions: ['', '.js', '.jsx']
+    },
     module: {
         loaders: [
             {
-                test: /\.js$/,
-                loader: "babel",
+                test: /\.jsx?$/,
+                loader: "babel-loader",
                 exclude: [/node_modules/, /public/],
+                presets: ['es2015', 'react']
             },
             {
                 test: /\.css$/,
@@ -34,11 +42,6 @@ module.exports = {
             {
                 test: /\.svg/,
                 loader: "url-loader?limit=26000&mimetype=image/svg+xml"
-            },
-            {
-                test: /\.jsx$/,
-                loader: "react-hot!babel",
-                exclude: [/node_modules/, /public/]
             },
             {
                 test: /\.json$/,
