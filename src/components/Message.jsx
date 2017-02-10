@@ -32,15 +32,19 @@ var Message = React.createClass({
     },
     expandHandler: function(){
       var { id, removeCollapseMessage, addCollapseMessage } = this.props;
-      if (this.props.collapsed){
+      if (this.props.collapsed_count > 0){
         removeCollapseMessage(id)
       } else {
         addCollapseMessage(id);
       }
     },
+    showName: function(){
+      var { name } = this.props;
+      return name ? <div><strong>{name}</strong><hr/></div> : '';
+    },
     renderCollapsedCounter: function(){
-      if (this.props.collsapsed_count  > 0){
-        return <span className="collapsed-counter">{this.props.collsapsed_count}</span>
+      if (this.props.collapsed_count > 0){
+        return <span className="collapsed-counter">{this.props.collapsed_count}</span>
       } else {
         return
       }
@@ -48,17 +52,18 @@ var Message = React.createClass({
     render: function() {
         var classes = classNames({
              'bubble': true,
-             'red': this.props.max,
-             'yellow': this.props.min,
+             'red': this.props.id == this.props.max_id,
+             'yellow': this.props.id == this.props.min_id,
              'shaking': this.props.before_selected
             }),
-            arrow_class = this.props.collapsed ? "expand-arrows" : "collapse-arrows";
+            arrow_class = this.props.collapsed_count > 0 ? "expand-arrows" : "collapse-arrows";
 
         return (
             <div className={classes} onMouseEnter={this.onHover} ref="message"
             onMouseLeave={this.onUnHover}>
                 {this.renderCollapsedCounter()}
                 <span className={arrow_class} onClick={this.expandHandler}></span>
+                {this.showName()}
                 {this.props.children}
             </div>
         );

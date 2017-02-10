@@ -13,6 +13,7 @@ export function unselectMessage(id) {
 }
 
 export function setName(name) {
+    console.log(getState());
     return {
         type: 'SET_NAME',
         payload: name
@@ -43,5 +44,11 @@ export function removeCollapseMessage(id) {
     return {
         type: 'REMOVE_FROM_COLLAPSE',
         payload: id
+    }
+}
+
+export function expandAll() {
+    return {
+        type: 'EXPAND_ALL',
     }
 }

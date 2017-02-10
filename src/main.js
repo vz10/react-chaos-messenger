@@ -5,7 +5,7 @@ import configureStore from './store/store';
 
 var MessengerApp = require('./components/MessengerApp.jsx');
 
-const initialState = window.__INITIAL_STATE__ || {firebase: { authError: null }};
+const initialState = window.__INITIAL_STATE__ || {firebase: { authError: null }, max_id: null};
 const store = configureStore(initialState);
 
 ReactDOM.render(

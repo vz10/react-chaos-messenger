@@ -14,55 +14,30 @@ const { isLoaded, isEmpty, dataToJS } = helpers
 const domain = extractDomain();
 
 var MessageLayout = React.createClass({
-    showName: function(message){
-      return message.name ? <div><strong>{message.name}</strong><hr/></div> : '';
-    },
     render: function() {
-        var {messages, selected, collapsed } = this.props,
-            max_id = null,
-            min_id = null,
-            ids_list = null,
-            me = this,
+        var {messages, selected, collapsed, min_id, max_id, ids_list } = this.props,
             before_selected = null;
-        if (!isEmpty(messages)){
-          ids_list = Object.keys(messages).map(function(o){return messages[o].id;}).sort();
-          max_id = Math.max.apply(null, Object.keys(messages).map(function(o){return messages[o].id;}));
-          min_id = Math.min.apply(null, Object.keys(messages).map(function(o){return messages[o].id;}));
-        }
         if (selected.id){
           before_selected = Math.max.apply(Math, Object.keys(messages).map(function(o){
                 return messages[o].id < selected.id ? messages[o].id : 0;
               }));
         }
-
         return (
             <div className="messages-layout columns" ref="grid">
                 {!isLoaded(messages) ?
                     'Loading' : isEmpty(messages) ? 'No messages yet':
                     Object.keys(messages).map(function(key, id){
-                        if (!collapsed.includes(messages[key].id) && messages[key].id < collapsed[collapsed.length-1]){
-                          return
-                        } else {
-                          var index_collapsed = collapsed.indexOf(messages[key].id),
-                              collsapsed_count = 0;
-                              if (index_collapsed > -1) {
-                                if (index_collapsed == 0) {
-                                  collsapsed_count = ids_list.indexOf(messages[key].id);
-                                } else {
-                                  collsapsed_count = ids_list.indexOf(messages[key].id) - ids_list.indexOf(collapsed[index_collapsed-1]);
-                                }
-                              };
+                        if(!ids_list[messages[key].id]){
                           return (
                               <Message
                                   key={key}
                                   color={messages[key].color}
-                                  max={messages[key].id == max_id}
-                                  min={messages[key].id == min_id}
-                                  collapsed={index_collapsed > -1}
-                                  collsapsed_count = {collsapsed_count}
-                                  before_selected={messages[key].id == before_selected}
+                                  min_id={min_id}
+                                  max_id={max_id}
+                                  collapsed_count={collapsed[messages[key].id]}
+                                  before_selected={messages[key].id == before_selected || messages[key].id == ids_list[before_selected]}
+                                  name={messages[key].name}
                                   id={messages[key].id}>
-                                  {me.showName(messages[key])}
                                   {messages[key].text}
                               </Message>
                           );
@@ -78,7 +53,10 @@ function mapStateToProps(state) {
     return {
         selected: state.selected,
         messages: dataToJS(state.firebase, '/'+domain),
-        collapsed: state.collapsed
+        collapsed: state.collapsed,
+        max_id: state.max_id,
+        min_id: state.min_id,
+        ids_list: state.ids_list
     };
 }
 

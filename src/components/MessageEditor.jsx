@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 
 import { extractDomain } from '../utils/utils';
-import { setName } from '../actions/index';
+import { setName, expandAll } from '../actions/index';
 
 require('./../css/MessageEditor.css');
 
@@ -34,6 +34,9 @@ var MessageEditor = React.createClass({
           this.setState({ text: '' });
           this.props.firebase.push('/'+domain, newMessage);
       }
+    },
+    handleMessageExpand: function () {
+      this.props.expandAll();
     },
     handleKeyPress: function(event) {
         if (event.key === 'Enter') {
@@ -70,14 +73,17 @@ var MessageEditor = React.createClass({
                     onChange={this.handleTextChange}
                     onKeyPress={this.handleKeyPress}
                 />
+              <div className="buttons-area">
+                <button className="add-button" disabled={this.props.collapsed.length == 0} onClick={this.handleMessageExpand}>Expand all</button>
                 <button className="add-button" onClick={this.handleMessageAdd}>Send</button>
+                </div>
             </div>
         );
     }
 });
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ setName }, dispatch);
+    return bindActionCreators({ setName, expandAll }, dispatch);
 }
 const wrappedMessageEditor = firebaseConnect(['/'+domain])(MessageEditor)
 
